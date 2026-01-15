@@ -23,6 +23,7 @@ class SpecimenResource(resources.ModelResource):
         import_id_fields = ("specimen_id",)
         fields = (
             "specimen_id",
+            "parent_specimen",
             "collection_id",
             "type",
             "source_subject",

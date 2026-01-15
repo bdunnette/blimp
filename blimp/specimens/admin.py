@@ -30,6 +30,7 @@ class SpecimenAdmin(ImportExportMixin, SimpleHistoryAdmin):
     resource_classes = [SpecimenResource]
     list_display = (
         "specimen_id",
+        "parent_specimen",
         "type",
         "source_subject",
         "collection_date",
@@ -38,7 +39,7 @@ class SpecimenAdmin(ImportExportMixin, SimpleHistoryAdmin):
         "row",
         "column",
     )
-    list_filter = ("type", "status", "collection_date", "container")
+    list_filter = ("type", "status", "collection_date", "container", "parent_specimen")
     search_fields = (
         "specimen_id",
         "collection_id",

@@ -69,6 +69,14 @@ class Specimen(models.Model):
         DESTROYED = "DESTROYED", _("Destroyed")
 
     specimen_id = models.CharField(_("Specimen ID"), max_length=100, unique=True)
+    parent_specimen = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="aliquots",
+        verbose_name=_("Parent Specimen"),
+    )
     collection_id = models.CharField(_("Collection ID"), max_length=100, blank=True)
     type = models.CharField(
         _("Type"),
