@@ -3,6 +3,54 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 
 
+class ContainerLocation(models.Model):
+    name = models.CharField(_("Name"), max_length=100)
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="children",
+        verbose_name=_("Parent Location"),
+    )
+    description = models.TextField(_("Description"), blank=True)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("Container Location")
+        verbose_name_plural = _("Container Locations")
+
+    def __str__(self):
+        if self.parent:
+            return f"{self.parent} > {self.name}"
+        return self.name
+
+
+class Container(models.Model):
+    name = models.CharField(_("Name"), max_length=100)
+    type = models.CharField(_("Type"), max_length=50, blank=True)
+    location = models.ForeignKey(
+        ContainerLocation,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="containers",
+        verbose_name=_("Location"),
+    )
+    rows = models.PositiveIntegerField(_("Rows"), default=1)
+    cols = models.PositiveIntegerField(_("Columns"), default=1)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("Container")
+        verbose_name_plural = _("Containers")
+
+    def __str__(self):
+        return self.name
+
+
 class Specimen(models.Model):
     class SpecimenType(models.TextChoices):
         BLOOD = "BLOOD", _("Blood")
@@ -38,11 +86,16 @@ class Specimen(models.Model):
         blank=True,
     )
     unit = models.CharField(_("Unit"), max_length=20, blank=True)
-    storage_location = models.CharField(
-        _("Storage Location"),
-        max_length=255,
+    container = models.ForeignKey(
+        Container,
+        on_delete=models.SET_NULL,
+        null=True,
         blank=True,
+        related_name="specimens",
+        verbose_name=_("Container"),
     )
+    row = models.PositiveIntegerField(_("Row"), null=True, blank=True)
+    column = models.PositiveIntegerField(_("Column"), null=True, blank=True)
     status = models.CharField(
         _("Status"),
         max_length=20,

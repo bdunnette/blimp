@@ -1,6 +1,20 @@
 from import_export import resources
 
+from .models import Container
+from .models import ContainerLocation
 from .models import Specimen
+
+
+class ContainerLocationResource(resources.ModelResource):
+    class Meta:
+        model = ContainerLocation
+        fields = ("id", "name", "parent", "description")
+
+
+class ContainerResource(resources.ModelResource):
+    class Meta:
+        model = Container
+        fields = ("id", "name", "type", "location", "rows", "cols")
 
 
 class SpecimenResource(resources.ModelResource):
@@ -15,7 +29,9 @@ class SpecimenResource(resources.ModelResource):
             "collection_date",
             "volume",
             "unit",
-            "storage_location",
+            "container",
+            "row",
+            "column",
             "status",
             "notes",
         )
