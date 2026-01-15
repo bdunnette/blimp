@@ -20,7 +20,7 @@ huey:
 
 # Run tests
 test:
-    uv run python manage.py test
+    uv run pytest
 
 # Open Django shell
 shell:
