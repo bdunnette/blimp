@@ -1,6 +1,9 @@
 # Justfile for BLIMP
 
+# Linux/MacOS shell
 set shell := ["bash", "-c"]
+# Windows PowerShell shell
+set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 
 # Run the development server
 dev:
