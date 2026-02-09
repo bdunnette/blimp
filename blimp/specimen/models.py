@@ -86,7 +86,7 @@ class Biospecimen(TimeStampedModel):
         related_name="specimens",
     )
     status = models.CharField(_("Status"), max_length=50, default="stored")
-
+    metadata = models.JSONField(_("Metadata"), blank=True, null=True)
     history = HistoricalRecords()
     tags = TaggableManager()
 

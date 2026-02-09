@@ -74,3 +74,5 @@ CELERY_TASK_EAGER_PROPAGATES = True
 WEBPACK_LOADER["DEFAULT"]["CACHE"] = not DEBUG
 # Your stuff...
 # ------------------------------------------------------------------------------
+INSTALLED_APPS += ["django_browser_reload"]
+MIDDLEWARE += ["django_browser_reload.middleware.BrowserReloadMiddleware"]
