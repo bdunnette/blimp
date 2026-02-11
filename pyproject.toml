@@ -182,7 +182,7 @@ dependencies = [
     "djangorestframework==3.16.1",
     "drf-spectacular==0.29.0",
     "gunicorn==25.0.3",
-    "pillow==12.1.0",
+    "pillow==12.1.1",
     "python-slugify==8.0.4",
     "sentry-sdk==2.52.0",
     "uvicorn-worker==0.4.0",
